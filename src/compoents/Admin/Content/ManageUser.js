@@ -23,6 +23,8 @@ const ManageUser = (props) => {
 
     const [pageCount, setPageCount] = useState(0)
 
+    const [currentPage, setCurrentPage] = useState(1)
+
     const [dataUser, setDataUser] = useState({})
 
     const [dataUpdate, setDataUpdate] = useState({})
@@ -95,6 +97,8 @@ const ManageUser = (props) => {
                         handleDeleteUser={handleDeleteUser}
                         fetchListUsersWithPaginate={fetchListUsersWithPaginate}
                         pageCount={pageCount}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
 
                 </div>
@@ -103,6 +107,9 @@ const ManageUser = (props) => {
                     show={showModalCreateUser}
                     setShow={setShowModalCreateUser}
                     fetchListUsers={fetchListUsers}
+                    fetchListUsersWithPaginate={fetchListUsersWithPaginate}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <ModalUpdateUser
@@ -111,6 +118,9 @@ const ManageUser = (props) => {
                     dataUpdate={dataUpdate}
                     fetchListUsers={fetchListUsers}
                     handleResetData={handleResetData}
+                    fetchListUsersWithPaginate={fetchListUsersWithPaginate}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
 
                 <ModalViewUser
@@ -125,6 +135,9 @@ const ManageUser = (props) => {
                     setShow={setShowModalDeleteUser}
                     dataDelete={dataDelete}
                     fetchListUsers={fetchListUsers}
+                    fetchListUsersWithPaginate={fetchListUsersWithPaginate}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
             </div>
         </div>

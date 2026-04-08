@@ -12,6 +12,7 @@ const TableUserPaginate = (props) => {
 
     const handlePageClick = (event) => {
         fetchListUsersWithPaginate(+event.selected + 1)
+        props.setCurrentPage(+event.selected + 1)
         console.log(
             `User requested page number ${event.selected} `
         )
@@ -62,7 +63,7 @@ const TableUserPaginate = (props) => {
 
                     {listUsers && listUsers.length === 0 &&
                         <tr>
-                            <td colSpan={'4'}>Not found data</td>
+                            <td colSpan={'5'}>Not found data</td>
                         </tr>
                     }
                 </tbody>
@@ -85,6 +86,7 @@ const TableUserPaginate = (props) => {
                 breakClassName="page-item"
                 breakLinkClassName="page-link"
                 activeClassName="active"
+                forcePage={props.currentPage - 1}
             />
 
 

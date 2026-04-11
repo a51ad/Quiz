@@ -1,4 +1,22 @@
 .login-container {
+
+    .loader-icon {
+        font-size: 14px;
+        margin-bottom: 3px;
+        color: #00d4ff;
+        animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+        from {
+            transform: scale(1) rotate(0deg);
+        }
+
+        to {
+            transform: scale(1) rotate(360deg);
+        }
+    }
+
     .header {
         height: 45px;
         text-align: right;
@@ -14,6 +32,8 @@
             &:hover {
                 background-color: white;
             }
+
+
         }
 
     }
@@ -45,6 +65,12 @@
             margin: 15px 0;
             color: white;
             background-color: black;
+
+            &:disabled {
+                background-color: #dddddd;
+                color: #afafaf;
+                cursor: pointer;
+            }
         }
 
         .back {

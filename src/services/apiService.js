@@ -1,5 +1,6 @@
 import instance from "../utils/axiosCustomize";
 
+//user
 const postCreateNewUser = (email, password, username, role, image) => {
     const data = new FormData();
     data.append('email', email);
@@ -35,4 +36,16 @@ const postLogin = (email, password) => {
     return instance.post(`api/v1/login`, { email, password })
 }
 
-export { postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate, postLogin }
+const postRegister = (email, password, username) => {
+    return instance.post(`api/v1/register`, { email, password, username })
+}
+
+//Quiz
+const getQuizByUser = () => {
+    return instance.get('api/v1/quiz-by-participant')
+}
+
+
+
+
+export { postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate, postLogin, postRegister, getQuizByUser }

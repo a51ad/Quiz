@@ -9,7 +9,7 @@ import {
     SidebarContent,
 } from 'react-pro-sidebar';
 
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import { FaGem, FaGithub, } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg2.jpg';
 
 import { DiReact } from "react-icons/di"
@@ -71,7 +71,10 @@ const SideBar = (props) => {
                                 Quản lý bài quiz
                                 <Link to="/admin/manage-quizzes" />
                             </MenuItem>
-                            <MenuItem> Quản lý câu hỏi</MenuItem>
+                            <MenuItem>
+                                Quản lý câu hỏi
+                                <Link to="/admin/manage-questions" />
+                            </MenuItem>
                         </SubMenu>
 
                     </Menu>

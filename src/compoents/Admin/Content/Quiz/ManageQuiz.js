@@ -38,6 +38,7 @@ const ManageQuiz = () => {
             setName("")
             setDescription("")
             setImage(null)
+
         } else {
             toast.error(res.EM)
         }

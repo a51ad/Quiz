@@ -1,22 +1,21 @@
-
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { toast } from "react-toastify";
-import { deleteUser } from '../../../services/apiService'
+import { deleteQuiz } from '../../../../services/apiService';
 
-const ModalDeleteUser = ({ show, setShow, dataDelete, fetchListUsers, fetchListUsersWithPaginate, currentPage, setCurrentPage }) => {
+
+const ModalDeleteUser = ({ show, setShow, dataDeleteQuiz, fetchQuiz }) => {
 
     const handleClose = () => setShow(false);
 
-    const handleSubmitDeleteUser = async () => {
-        let data = await deleteUser(dataDelete.id);
+    const handleSubmitDeleteQuiz = async () => {
+        const data = await deleteQuiz(dataDeleteQuiz.id)
 
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
-            // await fetchListUsers()
-            setCurrentPage(1)
-            await fetchListUsersWithPaginate(1)
+            fetchQuiz()
+
         }
 
         if (data && data.EC !== 0) {
@@ -34,12 +33,14 @@ const ModalDeleteUser = ({ show, setShow, dataDelete, fetchListUsers, fetchListU
                 <Modal.Header closeButton>
                     <Modal.Title>Comfirm delete user?</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure to delete this user email = <b> {dataDelete && dataDelete.email ? dataDelete.email : {}}</b></Modal.Body>
+                <Modal.Body>Are you sure to delete this Quiz id =
+                    <b>{dataDeleteQuiz && dataDeleteQuiz.id ? dataDeleteQuiz.id : {}}</b>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={() => handleSubmitDeleteUser()}>
+                    <Button variant="primary" onClick={() => handleSubmitDeleteQuiz()}>
                         Confirm
                     </Button>
                 </Modal.Footer>

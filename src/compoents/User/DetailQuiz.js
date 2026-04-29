@@ -21,6 +21,13 @@ const DetailQuiz = () => {
         fetchQuestions()
     }, [quizId])
 
+    const testFunc = () => {
+        console.log(test);
+
+    }
+
+    testFunc()
+
     const fetchQuestions = async () => {
         let res = await getDataQuiz(quizId)
         if (res && res.EC === 0) {
@@ -100,6 +107,7 @@ const DetailQuiz = () => {
         }
 
     }
+
 
     const handleCheckBox = (answerId, questionId) => {
         let dataQuizClone = _.cloneDeep(dataQuiz);

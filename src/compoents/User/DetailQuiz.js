@@ -47,6 +47,7 @@ const DetailQuiz = () => {
             setDataQuiz(data)
         }
     }
+
     const handlePrev = () => {
         if (index - 1 < 0) return;
         setIndex(index - 1)
@@ -86,13 +87,10 @@ const DetailQuiz = () => {
             let res = await postSubmitQuiz(payload)
             console.log(res);
             if (res && res.EC === 0) {
-
                 setDataModalResult({
                     countCorrect: res.DT.countCorrect,
                     countTotal: res.DT.countTotal,
                     quizData: res.DT.quizData
-
-
                 })
                 setShowModalResult(true)
             } else {
@@ -120,8 +118,6 @@ const DetailQuiz = () => {
             dataQuizClone[index] = question
             setDataQuiz(dataQuizClone)
         }
-
-
     }
 
     return (

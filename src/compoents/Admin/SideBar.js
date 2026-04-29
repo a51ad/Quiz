@@ -40,6 +40,7 @@ const SideBar = (props) => {
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
+                            cursor: 'pointer'
                         }}
                     >
                         <DiReact size={'3em'} color={'00bfff'} />

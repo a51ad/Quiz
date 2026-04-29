@@ -47,8 +47,6 @@ const ManageQuiz = () => {
 
     return (
         <div className="quiz-container">
-
-
             <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
                     <Accordion.Header>Manage Quiz</Accordion.Header>

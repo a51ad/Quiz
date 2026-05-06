@@ -8,6 +8,7 @@ import DashBoard from './compoents/Admin/Content/DashBoard'
 import Login from './compoents/Auth/Login';
 import Register from './compoents/Auth/Register';
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import ListQuiz from './compoents/User/ListQuiz';
 import DetailQuiz from './compoents/User/DetailQuiz'
 import ManageQuiz from './compoents/Admin/Content/Quiz/ManageQuiz';

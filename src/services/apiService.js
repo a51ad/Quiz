@@ -81,7 +81,35 @@ const deleteQuiz = (id) => {
     return instance.delete(`api/v1/quiz/${id}`)
 }
 
+const postCreateNewQuestionForQuiz = (quiz_id, description, image) => {
+    const data = new FormData();
+    data.append('quiz_id', quiz_id);
+    data.append('description', description);
+    data.append('questionImage', image);
+    return instance.post('api/v1/question', data);
+}
+
+const postCreateNewAnswerForQuiz = (description, correct_answer, question_id) => {
+    return instance.post('api/v1/answer', {
+        description,
+        correct_answer,
+        question_id
+    })
+}
+
+const postAssignQuiz = (quizId, userId) => {
+    return instance.post('api/v1/quiz-assign-to-user', {
+        quizId,
+        userId
+    })
+}
+
+const getQuizWithQA = (quizId) => {
+    return instance.get(`api/v1/quiz-with-qa/${quizId}`)
+}
+
 export {
     postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate, postLogin, postRegister, getQuizByUser,
-    getDataQuiz, postSubmitQuiz, postCreateNewQuiz, getAllQuizForAdmin, deleteQuiz, putUpdateQuiz
+    getDataQuiz, postSubmitQuiz, postCreateNewQuiz, getAllQuizForAdmin, deleteQuiz, putUpdateQuiz, postCreateNewQuestionForQuiz,
+    postCreateNewAnswerForQuiz, postAssignQuiz, getQuizWithQA
 }

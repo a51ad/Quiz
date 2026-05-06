@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import './Question.scss';
+import './QuizQA.scss'
 import Select from 'react-select';
 import { BsFillPatchPlusFill } from 'react-icons/bs';
 import { BsFillPatchMinusFill } from 'react-icons/bs';
@@ -11,9 +11,14 @@ import { toast } from "react-toastify";
 import _ from 'lodash';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-import { getAllQuizForAdmin, postCreateNewQuestionForQuiz, postCreateNewAnswerForQuiz } from "../../../../services/apiService";
+import {
+    getAllQuizForAdmin,
+    postCreateNewQuestionForQuiz,
+    postCreateNewAnswerForQuiz,
+    getQuizWithQA
+} from "../../../../services/apiService";
 
-const Quesions = () => {
+const QuizQA = () => {
     const initQuestions = [
         {
             id: uuidv4(),
@@ -56,6 +61,44 @@ const Quesions = () => {
         fetchQuiz()
     }, [])
 
+    function urltoFile(url, filename, mimeType) {
+        return fetch(url)
+            .then(function (res) { return res.arrayBuffer(); })
+            .then(function (buf) { return new File([buf], filename, { type: mimeType }); });
+    }
+
+    const fetchQuizWithQA = async () => {
+        const res = await getQuizWithQA(selectedQuiz.value);
+        if (res && res.EC === 0) {
+            const newQA = [];
+
+            for (let i = 0; i < res.DT.qa.length; i++) {
+                const q = { ...res.DT.qa[i] };
+
+                if (q.imageFile) {
+                    const imageName = `Question - ${q.id}.png`;
+                    const dataUrl = `data:image/png;base64,${q.imageFile}`;
+
+                    q.imageName = imageName;
+                    q.imagePreview = dataUrl; // cần dòng này để click mở lightbox
+                    q.imageFile = await urltoFile(dataUrl, imageName, 'image/png');
+                } else {
+                    q.imageName = '';
+                    q.imagePreview = '';
+                }
+
+                newQA.push(q);
+            }
+
+            setQuestions(newQA);
+        }
+    };
+
+    useEffect(() => {
+        if (selectedQuiz && selectedQuiz.value) {
+            fetchQuizWithQA()
+        }
+    }, [selectedQuiz])
 
     useEffect(() => {
         return () => {
@@ -193,8 +236,8 @@ const Quesions = () => {
             if (isValidAnswer === false) break;
         }
 
-        if (indexAnswer === false) {
-            toast.error(`Not empty answer ${indexAnswer + 1} at questtion ${indexQuestion + 1}`)
+        if (isValidAnswer === false) {
+            toast.error(`Not empty answer ${indexAnswer + 1} at questtion ${indexQuestion + 1} `)
             return
 
         }
@@ -209,7 +252,7 @@ const Quesions = () => {
             }
         }
         if (isValidQuestion === false) {
-            toast.error(`Not empty description for question ${indexQuestion1 + 1}`)
+            toast.error(`Not empty description for question ${indexQuestion1 + 1} `)
             return
 
         }
@@ -228,8 +271,6 @@ const Quesions = () => {
 
     return (
         <div className="question-container">
-            <div className="title">Manage Questions</div>
-            <hr />
             <div className="add-new-question">
                 <div className='col-6 form-group'>
                     <label className='mb-2'>Select Quiz:</label>
@@ -261,11 +302,11 @@ const Quesions = () => {
                                 </div>
 
                                 <div className='group-upload'>
-                                    <label htmlFor={`${question.id}`}>
+                                    <label htmlFor={`${question.id} `}>
                                         <RiImageAddFill className='label-upload' />
                                     </label>
                                     <input
-                                        id={`${question.id}`}
+                                        id={`${question.id} `}
                                         onChange={(e) => handleOnchangeFileQuestion(question.id, e)}
                                         type={'file'}
                                         hidden
@@ -360,4 +401,4 @@ const Quesions = () => {
     );
 };
 
-export default Quesions;
+export default QuizQA;

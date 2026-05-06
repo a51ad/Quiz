@@ -27,14 +27,15 @@ const TableQuiz = (props) => {
     }
 
     const fetchQuiz = async () => {
+
         let res = await getAllQuizForAdmin()
         if (res && res.EC === 0) {
             setListQuiz(res.DT);
         }
-
     }
 
     useEffect(() => {
+
         fetchQuiz()
     }, [])
 

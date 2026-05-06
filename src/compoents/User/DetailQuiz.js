@@ -62,7 +62,6 @@ const DetailQuiz = () => {
         let payload = {
             quizId: +quizId,
             answers: []
-
         }
 
         let answers = []
@@ -85,7 +84,6 @@ const DetailQuiz = () => {
             payload.answers = answers
             //submit api
             let res = await postSubmitQuiz(payload)
-            console.log(res);
             if (res && res.EC === 0) {
                 setDataModalResult({
                     countCorrect: res.DT.countCorrect,
@@ -94,7 +92,7 @@ const DetailQuiz = () => {
                 })
                 setShowModalResult(true)
             } else {
-
+                console.log("Error");
             }
 
         }
@@ -104,7 +102,7 @@ const DetailQuiz = () => {
     const handleCheckBox = (answerId, questionId) => {
         let dataQuizClone = _.cloneDeep(dataQuiz);
         let question = dataQuizClone.find(item => +item.questionId === +questionId)
-        if (question) {
+        if (question && question.answers) {
             let b = question.answers.map((item) => {
                 if (+item.id === +answerId) {
                     item.isSelected = !item.isSelected

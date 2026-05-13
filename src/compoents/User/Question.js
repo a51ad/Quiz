@@ -1,7 +1,11 @@
 import _ from 'lodash'
-
+import 'yet-another-react-lightbox/styles.css';
+import Lightbox from 'yet-another-react-lightbox';
+import { useState } from 'react';
 const Question = ({ data, index, handleCheckBox }) => {
 
+    const [openLightbox, setOpenLightbox] = useState(false)
+    const [lightboxSlides, setLightboxSlides] = useState([]);
     if (_.isEmpty(data)) {
         return (
             <>
@@ -14,11 +18,24 @@ const Question = ({ data, index, handleCheckBox }) => {
         handleCheckBox(answerId, questionId)
     }
 
+    const handleOpenImage = (imageUrl) => {
+        setLightboxSlides([{ src: imageUrl }]);
+        setOpenLightbox(true);
+    };
+
     return (
+
         <>
             {data.image ?
                 <div className='q-image'>
-                    <img src={`data:image/jpeg;base64, ${data.image}`} />
+                    <img onClick={() => handleOpenImage(`data:image/jpeg;base64, ${data.image}`)}
+                        style={{ cursor: 'pointer' }}
+                        src={`data:image/jpeg;base64, ${data.image}`} />
+                    <Lightbox
+                        open={openLightbox}
+                        close={() => setOpenLightbox(false)}
+                        slides={lightboxSlides}
+                    />
                 </div>
                 :
                 <div className='q-image'>

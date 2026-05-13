@@ -40,6 +40,10 @@ const postRegister = (email, password, username) => {
     return instance.post(`api/v1/register`, { email, password, username })
 }
 
+const postLogout = (email, refresh_token) => {
+    return instance.post('api/v1/logout', { email, refresh_token })
+}
+
 //Quiz
 const getQuizByUser = () => {
     return instance.get('api/v1/quiz-by-participant')
@@ -108,8 +112,11 @@ const getQuizWithQA = (quizId) => {
     return instance.get(`api/v1/quiz-with-qa/${quizId}`)
 }
 
+const postUpsertQA = (data) => {
+    return instance.post(`api/v1/quiz-upsert-qa`, { ...data })
+}
 export {
     postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate, postLogin, postRegister, getQuizByUser,
     getDataQuiz, postSubmitQuiz, postCreateNewQuiz, getAllQuizForAdmin, deleteQuiz, putUpdateQuiz, postCreateNewQuestionForQuiz,
-    postCreateNewAnswerForQuiz, postAssignQuiz, getQuizWithQA
+    postCreateNewAnswerForQuiz, postAssignQuiz, getQuizWithQA, postUpsertQA, postLogout
 }

@@ -4,7 +4,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { postLogout } from '../../services/apiService';
+import { toast } from 'react-toastify';
+import { doLogout } from '../../redux/action/userAction';
+import Language from './Language';
 
 
 const Hearder = () => {
@@ -12,6 +16,8 @@ const Hearder = () => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
 
     const account = useSelector(state => state.user.account)
+
+    const dispath = useDispatch()
 
     const navigate = useNavigate()
 
@@ -21,6 +27,16 @@ const Hearder = () => {
 
     const handleRegister = () => {
         navigate('register')
+    }
+
+    const handleLogout = async () => {
+        let res = await postLogout(account.email, account.refresh_token)
+        if (res && res.EC === 0) {
+            dispath(doLogout())
+            navigate('login')
+        } else {
+            toast.error(res.EM)
+        }
     }
 
     return (
@@ -45,10 +61,12 @@ const Hearder = () => {
                                 </>
                                 :
                                 <NavDropdown title="Settings" id="basic-nav-dropdown">
-                                    <NavDropdown.Item >Log out</NavDropdown.Item>
                                     <NavDropdown.Item >Profile</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={() => handleLogout()} >Log out</NavDropdown.Item>
                                 </NavDropdown>
                         }
+                        <Language />
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

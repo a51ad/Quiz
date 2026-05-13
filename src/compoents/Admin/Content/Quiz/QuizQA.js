@@ -15,7 +15,8 @@ import {
     getAllQuizForAdmin,
     postCreateNewQuestionForQuiz,
     postCreateNewAnswerForQuiz,
-    getQuizWithQA
+    getQuizWithQA,
+    postUpsertQA
 } from "../../../../services/apiService";
 
 const QuizQA = () => {
@@ -51,8 +52,6 @@ const QuizQA = () => {
                     label: `${item.id} - ${item.description}`
                 }
             })
-
-
             setListQuiz(newQuiz);
         }
     }
@@ -258,16 +257,39 @@ const QuizQA = () => {
         }
 
         //submit questions
-        for (const question of questions) {
-            const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile)
-            //submit answers
-            for (const answer of question.answers) {
-                await postCreateNewAnswerForQuiz(answer.description, answer.isCorrect, q.DT.id)
+        // for (const question of questions) {
+        //     const q = await postCreateNewQuestionForQuiz(+selectedQuiz.value, question.description, question.imageFile)
+        //     //submit answers
+        //     for (const answer of question.answers) {
+        //         await postCreateNewAnswerForQuiz(answer.description, answer.isCorrect, q.DT.id)
+        //     }
+        // }
+
+        let questionClone = _.cloneDeep(questions)
+        for (let i = 0; i < questionClone.length; i++) {
+            if (questionClone[i].imageFile) {
+                questionClone[i].imageFile = await toBase64(questionClone[i].imageFile)
             }
         }
-        toast.success("Create Questions and Answers succced")
+        let res = await postUpsertQA({
+            quizId: selectedQuiz.value,
+            questions: questionClone
+        });
+        if (res && res.EC === 0) {
+            toast.success(res.EM)
+            fetchQuizWithQA()
+        }
+
         setQuestions(initQuestions)
     };
+
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+    });
+
 
     return (
         <div className="question-container">

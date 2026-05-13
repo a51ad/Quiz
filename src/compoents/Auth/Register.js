@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { postRegister } from '../../services/apiService';
 import { toast } from "react-toastify";
 import { VscEye, VscEyeClosed } from "react-icons/vsc";
+import Language from '../Header/Language';
 
 function Register(props) {
 
@@ -54,6 +55,7 @@ function Register(props) {
             <div className='header'>
                 <span>Already have an account?</span>
                 <button onClick={() => navigate('/login')}>Log in</button>
+                <Language />
             </div>
 
             <div className='title col-4 mx-auto'>Nam Dev</div>
@@ -92,7 +94,7 @@ function Register(props) {
                 </div>
 
                 <div>
-                    <button className='btn-submit' onClick={() => handleRegister()}>Login</button>
+                    <button className='btn-submit' onClick={() => handleRegister()}>Register</button>
                 </div>
                 <div >
                     <span className='back' onClick={() => { navigate('/') }}>&#60;&#60; Go to Homepage</span>

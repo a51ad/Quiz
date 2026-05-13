@@ -1,0 +1,9 @@
+{
+    "homepage": {
+        "title1": " Chào mừng bạn đến với dự án của tôi -  Nam nhà phát triển",
+        "title2": "Đây là dự án tôi tạo ra để thực hành ReactJS và Redux. Hy vọng các bạn thích nó.",
+        "title3": {
+            "login": "Bắt đầu nào"
+        }
+    }
+}

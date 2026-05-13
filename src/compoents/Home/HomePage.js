@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import videoHomePage from "../../assets/video-homepage.mp4"
+import { useTranslation, Trans } from 'react-i18next'
 
 const HomePage = (props) => {
 
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const navigate = useNavigate()
+    const { t } = useTranslation()
 
     return (
         <div className="homepage-container">
@@ -13,13 +15,16 @@ const HomePage = (props) => {
                 <source src={videoHomePage} type="video/mp4" />
             </video>
             <div className="homepage-content">
-                <div className="title-1">Welcome to my project - Nam Dev</div>
+                <div className="title-1">
+
+                    {t('homepage.title1')}
+                </div>
                 <div className="title-2">
-                    This is a project that I created to practice ReactJS and Redux. I hope you like it.
+                    {t('homepage.title2')}
                 </div>
                 <div className="title-3">
                     {isAuthenticated === false ?
-                        <button onClick={() => navigate('/login')}>Get Started</button>
+                        <button onClick={() => navigate('/login')}>{t('homepage.title3.login')}</button>
                         :
                         <button onClick={() => navigate('/users')} > Doing Quiz Now</button>
                     }

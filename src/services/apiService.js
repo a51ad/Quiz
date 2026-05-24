@@ -24,6 +24,13 @@ const putUpdateUser = (id, username, role, image) => {
     return instance.put('api/v1/participant', data);
 }
 
+const postUpdateProfile = (username, userImage) => {
+    const data = new FormData();
+    data.append('username', username)
+    data.append('userImage', userImage)
+    return instance.post('api/v1/profile', data)
+}
+
 const deleteUser = (userId) => {
     return instance.delete('api/v1/participant', { data: { id: userId } })
 }
@@ -38,6 +45,10 @@ const postLogin = (email, password) => {
 
 const postRegister = (email, password, username) => {
     return instance.post(`api/v1/register`, { email, password, username })
+}
+
+const postChangePassword = (current_password, new_password) => {
+    return instance.post(`api/v1/change-password`, { current_password, new_password })
 }
 
 const postLogout = (email, refresh_token) => {
@@ -115,8 +126,19 @@ const getQuizWithQA = (quizId) => {
 const postUpsertQA = (data) => {
     return instance.post(`api/v1/quiz-upsert-qa`, { ...data })
 }
+
+const getOverview = () => {
+    return instance.get(`api/v1/overview`)
+}
+
+const getHistory = () => {
+    return instance.get(`api/v1/history`)
+}
+
 export {
     postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate, postLogin, postRegister, getQuizByUser,
     getDataQuiz, postSubmitQuiz, postCreateNewQuiz, getAllQuizForAdmin, deleteQuiz, putUpdateQuiz, postCreateNewQuestionForQuiz,
-    postCreateNewAnswerForQuiz, postAssignQuiz, getQuizWithQA, postUpsertQA, postLogout
+    postCreateNewAnswerForQuiz, postAssignQuiz, getQuizWithQA, postUpsertQA, postLogout, getOverview, postChangePassword,
+    postUpdateProfile, getHistory
+
 }

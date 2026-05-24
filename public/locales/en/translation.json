@@ -1,9 +1,10 @@
 {
     "homepage": {
-        " title1": " Welcome to my project - Nam Dev",
+        "title1": " Welcome to my project - Nam Dev",
         "title2": " This is a project that I created to practice ReactJS and Redux. I hope you like it.",
         "title3": {
-            " login": "Get Started"
+            "login": "Get Started",
+            "users": "Doing Quiz Now"
         }
     }
 }

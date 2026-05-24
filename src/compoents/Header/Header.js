@@ -9,6 +9,9 @@ import { postLogout } from '../../services/apiService';
 import { toast } from 'react-toastify';
 import { doLogout } from '../../redux/action/userAction';
 import Language from './Language';
+import Profile from './Profile';
+import { useState } from 'react';
+
 
 
 const Hearder = () => {
@@ -17,9 +20,13 @@ const Hearder = () => {
 
     const account = useSelector(state => state.user.account)
 
+
+
     const dispath = useDispatch()
 
     const navigate = useNavigate()
+
+    const [showModalProfile, setShowModalProfile] = useState(false)
 
     const handleLogin = () => {
         navigate('login')
@@ -40,37 +47,48 @@ const Hearder = () => {
     }
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
-                {/* <Navbar.Brand href="#home">Nam DEV</Navbar.Brand> */}
-                <NavLink to="/" className='navbar-brand'>Nam Dev</NavLink>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <NavLink to="/" className='nav-link'>Home</NavLink>
-                        <NavLink to="users" className='nav-link'>Users</NavLink>
-                        <NavLink to="admin" className='nav-link'>Admin</NavLink>
-                    </Nav>
-                    <Nav>
+        <>
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container>
+                    {/* <Navbar.Brand href="#home">Nam DEV</Navbar.Brand> */}
+                    <NavLink to="/" className='navbar-brand'>Nam Dev</NavLink>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="me-auto">
+                            <NavLink to="/" className='nav-link'>Home</NavLink>
 
-                        {
-                            isAuthenticated === false ?
-                                <>
-                                    <button className='btn-login' onClick={() => handleLogin()}>Log in</button>
-                                    <button className='btn-signup' onClick={() => handleRegister()}>Sign up</button>
-                                </>
-                                :
-                                <NavDropdown title="Settings" id="basic-nav-dropdown">
-                                    <NavDropdown.Item >Profile</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => handleLogout()} >Log out</NavDropdown.Item>
-                                </NavDropdown>
-                        }
-                        <Language />
+                            {
+                                isAuthenticated && (
+                                    account?.role === "ADMIN" ? (
+                                        <NavLink to="admin" className="nav-link">Admin</NavLink>
+                                    ) : (
+                                        <NavLink to="users" className="nav-link">Users</NavLink>
+                                    )
+                                )
+                            }
 
-                    </Nav>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+                        </Nav>
+                        <Nav>
+
+                            {
+                                isAuthenticated === false ?
+                                    <>
+                                        <button className='btn-login' onClick={() => handleLogin()}>Log in</button>
+                                        <button className='btn-signup' onClick={() => handleRegister()}>Sign up</button>
+                                    </>
+                                    :
+                                    <NavDropdown title="Settings" id="basic-nav-dropdown">
+                                        <NavDropdown.Item onClick={() => setShowModalProfile(true)}>Profile</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => handleLogout()} >Log out</NavDropdown.Item>
+                                    </NavDropdown>
+                            }
+                            <Language />
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+            <Profile show={showModalProfile} setshow={setShowModalProfile} />
+        </>
     );
 }
 

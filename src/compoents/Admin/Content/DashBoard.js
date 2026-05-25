@@ -16,6 +16,8 @@ const DashBoard = (props) => {
         const res = await getOverview()
         if (res && res.EC === 0) {
             setDataOverView(res.DT)
+            console.log(res.DT);
+
             //process
             let Qz = 0, Qs = 0, As = 0
             Qz = res?.DT?.others?.countQuiz ?? 0;

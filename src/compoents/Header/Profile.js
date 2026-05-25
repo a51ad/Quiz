@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import ChangePassword from './ChangePassword';
 import UserInfo from './UserInfo';
 import { useState } from 'react';
+import History from './History';
 
 const Profile = ({ show, setshow }) => {
 
@@ -36,7 +37,7 @@ const Profile = ({ show, setshow }) => {
                             <ChangePassword />
                         </Tab>
                         <Tab eventKey="history" title="History" >
-                            History
+                            <History />
                         </Tab>
                     </Tabs>
                 </Modal.Body>

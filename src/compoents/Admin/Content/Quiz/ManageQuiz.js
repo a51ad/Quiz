@@ -4,7 +4,6 @@ import Select from "react-select"
 import { postCreateNewQuiz } from '../../../../services/apiService';
 import { toast } from "react-toastify";
 import TableQuiz from './TableQuiz';
-import Accordion from 'react-bootstrap/Accordion';
 import QuizQA from './QuizQA';
 import AssignQuiz from './AssignQuiz';
 import Tab from 'react-bootstrap/Tab';

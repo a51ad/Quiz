@@ -135,6 +135,7 @@ const getHistory = () => {
     return instance.get(`api/v1/history`)
 }
 
+
 export {
     postCreateNewUser, getAllUsers, putUpdateUser, deleteUser, getUserWithPaginate, postLogin, postRegister, getQuizByUser,
     getDataQuiz, postSubmitQuiz, postCreateNewQuiz, getAllQuizForAdmin, deleteQuiz, putUpdateQuiz, postCreateNewQuestionForQuiz,

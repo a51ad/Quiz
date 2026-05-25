@@ -12,6 +12,8 @@ const AssignQuiz = () => {
 
     const fetchQuiz = async () => {
         let res = await getAllQuizForAdmin()
+        console.log(res.DT);
+
         if (res && res.EC === 0) {
             let newQuiz = res.DT.map(item => {
                 return {

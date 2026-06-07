@@ -48,7 +48,7 @@ const History = () => {
                 </thead>
                 <tbody>
                     {listHistory && listHistory.length > 0 && listHistory.map((item, index) => (
-                        <tr key={item.id ?? index}>
+                        <tr key={item.id}>
                             <th scope="row">{item.id}</th>
                             <td>{item.name}</td>
                             <td>{item.total_questions}</td>

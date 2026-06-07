@@ -2,7 +2,8 @@ import _ from 'lodash'
 import 'yet-another-react-lightbox/styles.css';
 import Lightbox from 'yet-another-react-lightbox';
 import { useState } from 'react';
-const Question = ({ data, index, handleCheckBox }) => {
+import { IoIosClose, IoIosCheckmark } from "react-icons/io";
+const Question = ({ data, index, handleCheckbox, isShowAnswer }) => {
 
     const [openLightbox, setOpenLightbox] = useState(false)
     const [lightboxSlides, setLightboxSlides] = useState([]);
@@ -15,7 +16,7 @@ const Question = ({ data, index, handleCheckBox }) => {
     }
 
     const handleChildCheckBox = (e, answerId, questionId) => {
-        handleCheckBox(answerId, questionId)
+        handleCheckbox(answerId, questionId)
     }
 
     const handleOpenImage = (imageUrl) => {
@@ -58,6 +59,17 @@ const Question = ({ data, index, handleCheckBox }) => {
                                     <label className="form-check-label" >
                                         {item.description}
                                     </label>
+                                    {isShowAnswer === true &&
+                                        <>
+                                            {item.isSelected === true && item.isCorrect === false
+                                                && <IoIosClose className='incorrect' />
+                                            }
+
+                                            {item.isCorrect === true
+                                                && <IoIosCheckmark className='correct' />
+                                            }
+                                        </>
+                                    }
                                 </div>
                             </div>
                         )
